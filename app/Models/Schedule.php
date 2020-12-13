@@ -9,6 +9,13 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'sport',
+        'title',
+        'start',
+        'end'
+    ];
+
     public function sport ()
     {
         return $this->hasOne(Sport::class);

@@ -16,9 +16,9 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sport');
-            $table->date('date')->nullable(false);
-            $table->time('start')->nullable(false);
-            $table->time('end')->nullable(false);
+            $table->string('title');
+            $table->dateTime('start')->nullable(false);
+            $table->dateTime('end')->nullable(false);
             $table->timestamps();
             $table->foreign('sport')
                 ->references('id')->on('sports')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schedule;
+use App\Models\Sport;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -12,9 +13,16 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($month)
     {
-        //
+        if($month == 'current'){
+            $month = date('m');
+        }
+        $schedules = Schedule::whereMonth('start', '=', $month)->get();
+        return response()->json([
+            'month' => $month,
+            'schedules' => $schedules
+        ]);
     }
 
     /**
@@ -35,7 +43,9 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sport = Sport::create($request->all());
+        $message = $sport->generateSchedules();
+        return response()->json($message);
     }
 
     /**
